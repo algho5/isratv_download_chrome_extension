@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "IsraTV downloader",
+  "version": "1.0",
+  "permissions": ["activeTab", "scripting", "downloads"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "host_permissions": ["*://*/*"]
+}

@@ -1,0 +1,39 @@
+body {
+  width: 256px;
+  max-height: 512px;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 5px;
+}
+
+.header_btn {
+  width: 40%;
+  height: 32px;
+}
+
+.videos {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.video {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid black;
+  margin: 1px;
+}
+
+.video > label {
+  text-align: center;
+  width: 30%;
+}
+
+.video > progress {
+  width: 70%;
+}
