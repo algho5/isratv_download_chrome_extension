@@ -12,8 +12,7 @@ async function loadVideo() {
 async function downloadVideo() {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   let videos = [...document.getElementById("videos").children];
-  //videos = videos.slice(0, 1); /////
-  let infos = [];
+  // videos = videos.slice(0, 1); /////
   for (let video of videos) {
     const url = video.lastElementChild.getAttribute("id");
     const name = video.firstElementChild.innerHTML;
@@ -25,24 +24,12 @@ async function downloadVideo() {
         args: [{ url }],
       })
       .then(([res]) => {
-        infos.push({ ...res.result, name });
-        console.log(infos);
+        console.log(res.result);
+        const jsonStr = JSON.stringify(res.result);
+        const blob = new Blob([jsonStr], { type: "application/json" });
+        const jsonUrl = URL.createObjectURL(blob);
+        chrome.downloads.download({ url: jsonUrl, filename: `${name}.json` });
       });
-  }
-
-  let current_downloading = false;
-  chrome.downloads.onChanged.addListener((delta) => {
-    console.log("changed", delta);
-  });
-  for (let info of infos) {
-    console.log(info);
-
-    for (let i = 0; i < info["playlist"].length; i++) {
-      await chrome.downloads.download({
-        url: `${info["url"]}${info["playlist"][i]}`,
-        filename: `${info.name} - ${i}.ts`,
-      });
-    }
   }
 }
 
